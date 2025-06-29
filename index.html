@@ -1,220 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
-		<title>SimplestPlataformer</title>
-		<style>
-html, body, #canvas {
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franklin R. M. Tavares Jr. | Portfolio</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
 
-body {
-	color: white;
-	background-color: black;
-	overflow: hidden;
-	touch-action: none;
-}
+        .container {
+            max-width: 960px;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
 
-#canvas {
-	display: block;
-}
+        header {
+            background: #333;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
 
-#canvas:focus {
-	outline: none;
-}
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 300;
+        }
 
-#status, #status-splash, #status-progress {
-	position: absolute;
-	left: 0;
-	right: 0;
-}
+        header p {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
 
-#status, #status-splash {
-	top: 0;
-	bottom: 0;
-}
+        .btn {
+            display: inline-block;
+            background: #55aacc;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
 
-#status {
-	background-color: #242424;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	visibility: hidden;
-}
+        .btn:hover {
+            background-color: #4488aa;
+        }
 
-#status-splash {
-	max-height: 100%;
-	max-width: 100%;
-	margin: auto;
-}
+        section {
+            padding: 4rem 0;
+            border-bottom: 1px solid #ddd;
+        }
 
-#status-splash.show-image--false {
-	display: none;
-}
+        section:last-child {
+            border-bottom: none;
+        }
 
-#status-splash.fullsize--true {
-	height: 100%;
-	width: 100%;
-	object-fit: contain;
-}
+        h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            font-weight: 300;
+        }
 
-#status-splash.use-filter--false {
-	image-rendering: pixelated;
-}
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: center;
+        }
 
-#status-progress, #status-notice {
-	display: none;
-}
+        .about-grid img {
+            width: 100%;
+            border-radius: 50%;
+        }
 
-#status-progress {
-	bottom: 10%;
-	width: 50%;
-	margin: 0 auto;
-}
+        #experience .timeline {
+            position: relative;
+            padding: 0 0 2rem 2rem;
+        }
 
-#status-notice {
-	background-color: #5b3943;
-	border-radius: 0.5rem;
-	border: 1px solid #9b3943;
-	color: #e0e0e0;
-	font-family: 'Noto Sans', 'Droid Sans', Arial, sans-serif;
-	line-height: 1.3;
-	margin: 0 2rem;
-	overflow: hidden;
-	padding: 1rem;
-	text-align: center;
-	z-index: 1;
-}
-		</style>
-		<link id="-gd-engine-icon" rel="icon" type="image/png" href="SimplestPlataformer.icon.png" />
-<link rel="apple-touch-icon" href="SimplestPlataformer.apple-touch-icon.png"/>
+        #experience .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ddd;
+        }
 
-	</head>
-	<body>
-		<canvas id="canvas">
-			Your browser does not support the canvas tag.
-		</canvas>
+        #experience .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
 
-		<noscript>
-			Your browser does not support JavaScript.
-		</noscript>
+        #experience .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -19px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border: 2px solid #333;
+            background: #fff;
+            border-radius: 50%;
+        }
 
-		<div id="status">
-			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="SimplestPlataformer.png" alt="">
-			<progress id="status-progress"></progress>
-			<div id="status-notice"></div>
-		</div>
+        #experience .timeline-item h3 {
+            margin: 0 0 0.5rem 0;
+        }
+        
+        #experience .timeline-item p {
+            margin: 0;
+        }
 
-		<script src="SimplestPlataformer.js"></script>
-		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"ensureCrossOriginIsolationHeaders":true,"executable":"SimplestPlataformer","experimentalVK":false,"fileSizes":{"SimplestPlataformer.pck":3531648,"SimplestPlataformer.wasm":43682606},"focusCanvas":true,"gdextensionLibs":[]};
-const GODOT_THREADS_ENABLED = false;
-const engine = new Engine(GODOT_CONFIG);
+        #skills .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            text-align: center;
+        }
 
-(function () {
-	const statusOverlay = document.getElementById('status');
-	const statusProgress = document.getElementById('status-progress');
-	const statusNotice = document.getElementById('status-notice');
+        #skills .skill-category {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        #skills .skill-category h3 {
+            margin-top: 0;
+        }
 
-	let initializing = true;
-	let statusMode = '';
+        #projects .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
 
-	function setStatusMode(mode) {
-		if (statusMode === mode || !initializing) {
-			return;
-		}
-		if (mode === 'hidden') {
-			statusOverlay.remove();
-			initializing = false;
-			return;
-		}
-		statusOverlay.style.visibility = 'visible';
-		statusProgress.style.display = mode === 'progress' ? 'block' : 'none';
-		statusNotice.style.display = mode === 'notice' ? 'block' : 'none';
-		statusMode = mode;
-	}
+        #projects .project-card {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        #projects .project-card:hover {
+            transform: translateY(-5px);
+        }
 
-	function setStatusNotice(text) {
-		while (statusNotice.lastChild) {
-			statusNotice.removeChild(statusNotice.lastChild);
-		}
-		const lines = text.split('\n');
-		lines.forEach((line) => {
-			statusNotice.appendChild(document.createTextNode(line));
-			statusNotice.appendChild(document.createElement('br'));
-		});
-	}
+        #projects .project-card-content {
+            padding: 1.5rem;
+        }
+        
+        #projects .project-card-content h3 {
+            margin-top: 0;
+        }
 
-	function displayFailureNotice(err) {
-		console.error(err);
-		if (err instanceof Error) {
-			setStatusNotice(err.message);
-		} else if (typeof err === 'string') {
-			setStatusNotice(err);
-		} else {
-			setStatusNotice('An unknown error occurred.');
-		}
-		setStatusMode('notice');
-		initializing = false;
-	}
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background: #333;
+            color: #fff;
+        }
+        
+        footer p {
+            margin: 0;
+        }
 
-	const missing = Engine.getMissingFeatures({
-		threads: GODOT_THREADS_ENABLED,
-	});
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .about-grid img {
+                max-width: 250px;
+                margin: 0 auto 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
 
-	if (missing.length !== 0) {
-		if (GODOT_CONFIG['serviceWorker'] && GODOT_CONFIG['ensureCrossOriginIsolationHeaders'] && 'serviceWorker' in navigator) {
-			let serviceWorkerRegistrationPromise;
-			try {
-				serviceWorkerRegistrationPromise = navigator.serviceWorker.getRegistration();
-			} catch (err) {
-				serviceWorkerRegistrationPromise = Promise.reject(new Error('Service worker registration failed.'));
-			}
-			// There's a chance that installing the service worker would fix the issue
-			Promise.race([
-				serviceWorkerRegistrationPromise.then((registration) => {
-					if (registration != null) {
-						return Promise.reject(new Error('Service worker already exists.'));
-					}
-					return registration;
-				}).then(() => engine.installServiceWorker()),
-				// For some reason, `getRegistration()` can stall
-				new Promise((resolve) => {
-					setTimeout(() => resolve(), 2000);
-				}),
-			]).then(() => {
-				// Reload if there was no error.
-				window.location.reload();
-			}).catch((err) => {
-				console.error('Error while registering service worker:', err);
-			});
-		} else {
-			// Display the message as usual
-			const missingMsg = 'Error\nThe following features required to run Godot projects on the Web are missing:\n';
-			displayFailureNotice(missingMsg + missing.join('\n'));
-		}
-	} else {
-		setStatusMode('progress');
-		engine.startGame({
-			'onProgress': function (current, total) {
-				if (current > 0 && total > 0) {
-					statusProgress.value = current;
-					statusProgress.max = total;
-				} else {
-					statusProgress.removeAttribute('value');
-					statusProgress.removeAttribute('max');
-				}
-			},
-		}).then(() => {
-			setStatusMode('hidden');
-		}, displayFailureNotice);
-	}
-}());
-		</script>
-	</body>
+    <header>
+        <div class="container">
+            <h1>Franklin R. M. Tavares Jr.</h1>
+            <p>Versatile Software & Electronics Engineer</p>
+            <a href="https://www.linkedin.com/in/franklin-ronaldo-martins-tavares-junior/" class="btn" target="_blank">Connect on LinkedIn</a>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-grid">
+                <div>
+                    <img src="assets/profile_picture.jpg" alt="Franklin R. M. Tavares Jr.">
+                </div>
+                <div>
+                    <p>
+                        Professional in the area of Electronics Engineering and Software Development. Bachelors in electronics engineering at UTFPR (Brazil). Able to communicate in portuguese, english and a little of spanish. I've worked on telecomunications as assistent in 2G/3G equipament repair, development of IoT systems (hardware and firmware), automation of mechanical systems, tracking and sensoring system for firearms usage, Android TV programming, ticketing and point of sale system for public transportation, and now I work with with patient engagement software for medical practices. Like a lot of coding and have a great knowledge of C/C++, some python, golang and nodejs, also do hardware development.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2>Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Zipdev</h3>
+                    <p><strong>Senior C++ developer</strong> (jun 2023 - Present)</p>
+                    <p>Development of software for medical practices and patient engagement on Windows using C++, SQL, Ruby and Golang.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Dataprom Equipamentos e Serviços de Informática</h3>
+                    <p><strong>Senior C++ developer</strong> (ago 2022 - jun 2023)</p>
+                    <p>Development of software and firmware in C++ for urban mobility system, ticketing system and point of sale system, embedded linux, SCRUM.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Sagemcom</h3>
+                    <p><strong>R&D Analyst</strong> (jan 2022 - ago 2022)</p>
+                    <p>Programming of Android embedded systems for audio and video solutions. Meetings with international teams every week for followup. Debugging and problem solving in a huge codebase.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Tracktum</h3>
+                    <p><strong>Embeeded systems developer</strong> (mai 2021 - dez 2021)</p>
+                    <p>Design and test PCB for firearm tracking and monitoring system using sensors, Wi-Fi and 4G. Develop and test code in C/C++ for embeeded system. Development of tools in Python. Development and test of software in Golang and SQL. Grafana dashboard development. Linux environment.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Mindtech Tecnologia</h3>
+                    <p><strong>Embeeded systems developer</strong> (mai 2020 - abr 2021)</p>
+                    <p>Development of PCB and firmware with C/C++ of IoT systems. Design of schematics and PCB layout. Power converters, hardware test automation, RF design for bluetooth. Programming with ESP8266, ESP32 and NRF52. Communications protocols such as MQTT, TCP, UDP, TLS and Bluetooth.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Aps equipamentos Especiais LTDA</h3>
+                    <p><strong>Embeeded systems developer</strong> (jul 2020 - fev 2021)</p>
+                    <p>Design and test PCB for descontamination systems with safety features. Develop and test code in C/C++ for embeeded system and automation of processes.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Mindtech - Soluções digitais</h3>
+                    <p><strong>Intern</strong> (abr 2019 - fev 2020)</p>
+                    <p>Development of PCB and firmware with C/C++ of IoT systems. Design of schematics and PCB layout. Power converters. Programming with ESP8266 and ESP32. Communications protocols such as MQTT, TCP, UDP e TLS.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Smart Energy</h3>
+                    <p><strong>Embeeded systems developer</strong> (nov 2017 - fev 2019)</p>
+                    <p>Development of a IoT systems for sampling and analysis of the power grid. Programming in C on Raspberry Pi platform. Interface with non invasive current sensor. Development of algorithms for power analysis.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Oi</h3>
+                    <p><strong>Intern</strong> (mai 2016 - ago 2016)</p>
+                    <p>Maintenance of 2G e 3G equipaments of radio wave transmissions, maintenance of optics fiber equipaments, maintenance and analysis of 2G and 3G telecommunications web through computer software, analysis of defects on energy frame.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <p>Portuguese, English, Spanish, French, German</p>
+                </div>
+                <div class="skill-category">
+                    <h3>Programming</h3>
+                    <p>JavaScript, Python, C++, Java, SQL</p>
+                </div>
+                <div class="skill-category">
+                    <h3>Web Development</h3>
+                    <p>HTML, CSS, React, Node.js, Express</p>
+                </div>
+                 <div class="skill-category">
+                    <h3>Electronics</h3>
+                    <p>Circuit Design, PCB Layout, Microcontrollers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-card-content">
+                        <h3>Arcane2D Engine</h3>
+                        <p>A 2D engine for game development.</p>
+                        <a href="https://github.com/franklinjr12/Arcane2DEngine" class="btn" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-card-content">
+                        <h3>River Monitoring System</h3>
+                        <p>A system to monitor river levels and prevent disasters.</p>
+                        <a href="https://github.com/franklinjr12/RiverMonitoringSystem" class="btn" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-card-content">
+                        <h3>goshard</h3>
+                        <p>A command line tool to shard files.</p>
+                        <a href="https://github.com/franklinjr12/goshard" class="btn" target="_blank">View on GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Franklin R. M. Tavares Jr. | <a href="https://www.linkedin.com/in/franklin-ronaldo-martins-tavares-junior/" style="color: #fff;">LinkedIn</a></p>
+        </div>
+    </footer>
+
+</body>
 </html>
-
